@@ -9,10 +9,17 @@ While kindletool should work with the current stable releases of libarchive & ne
 ## Usage:
 
 * Tap this repo
-	brew tap NiLuJe/kindletool
+
+		brew tap NiLuJe/kindletool
+		
 * Install nettle @ git master
-	brew install NiLuJe/kindletool/nettle --HEAD
+
+		brew install NiLuJe/kindletool/nettle --HEAD
+		
 * Install libarchive @ git master
-	brew install NiLuJe/kindletool/libarchive --HEAD
-* Install KindleTool @ git master 
-	brew install kindletool --HEAD
+
+		brew install NiLuJe/kindletool/libarchive --HEAD
+
+* Install KindleTool @ git master
+
+		brew install kindletool --HEAD
