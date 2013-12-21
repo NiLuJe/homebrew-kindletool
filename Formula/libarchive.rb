@@ -15,6 +15,7 @@ class Libarchive < Formula
   depends_on 'lzo'
   depends_on 'NiLuJe/kindletool/nettle' => :recommended
   depends_on 'expat' => :recommended
+  depends_on :libxml2 if build.without? 'expat'
 
   def patches
     # Fixes issue 317 (bad fcntl API usage)
