@@ -21,6 +21,6 @@ class Kindletool < Formula
     ENV['LDFLAGS'] = ''
     
     system 'make'
-    system 'make', 'install', "DESTDIR=#{prefix}", "PREFIX=/usr"
+    system 'make', 'install', "DESTDIR=#{prefix}", "PREFIX=/."
   end
 end
