@@ -12,12 +12,6 @@ class Kindletool < Formula
   depends_on 'NiLuJe/kindletool/nettle'
 
   def install
-    # Superenv kills *FLAGS from the env, which confuses our Makefile...
-    ENV['CFLAGS'] = '-O2 ${HOMEBREW_OPTFLAGS}'
-    # Those need to be set for our Makefile's logic.
-    ENV['CPPFLAGS'] = ' '
-    ENV['LDFLAGS'] = ' '
-
     system 'make'
     system 'make', 'install', "DESTDIR=#{prefix}", 'PREFIX=/.'
   end
