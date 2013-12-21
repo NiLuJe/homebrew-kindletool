@@ -18,7 +18,7 @@ class Kindletool < Formula
     ENV['CFLAGS'] = '-O2 ${HOMEBREW_OPTFLAGS}'
     # Those need to be set for our Makefile's logic.
     ENV['CPPFLAGS'] = ''
-    
+
     system 'make', 'LDFLAGS='
     system 'make', 'install', "DESTDIR=#{prefix}", 'PREFIX=/.', 'LDFLAGS='
   end

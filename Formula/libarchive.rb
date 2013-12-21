@@ -26,7 +26,7 @@ class Libarchive < Formula
     # Use the CMake buildsystem, to avoid issues when building HEAD
     # Make sure it doesn't choke on Homebrew's build type...
     inreplace 'CMakeLists.txt', 'Debug|Release|RelWithDebInfo|MinSizeRel', 'None|Debug|Release|RelWithDebInfo|MinSizeRel'
-    
+
     # Set a bunch of defaults...
     args = std_cmake_args + %W[
           -DENABLE_TEST=OFF
