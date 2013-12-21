@@ -10,9 +10,6 @@ class Nettle < Formula
   depends_on 'gmp'
 
   def install
-    # Don't add -ggdb3 to the CFLAGS!
-    inreplace 'configure.ac', 'CFLAGS="$CFLAGS -ggdb3"', 'true'
-
     system './.bootstrap'
     system './configure', "--prefix=#{prefix}",
                           '--enable-shared',
