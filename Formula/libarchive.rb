@@ -31,7 +31,6 @@ class Libarchive < Formula
     args = std_cmake_args + %W[
           -DENABLE_TEST=OFF
           -DBUILD_TESTING=OFF
-          -DENABLE_GTK=OFF
           -DENABLE_TAR=ON
           -DENABLE_XATTR=ON
           -DENABLE_ACL=ON
@@ -42,15 +41,17 @@ class Libarchive < Formula
           -DENABLE_BZip2=ON
         ]
 
-    # And then, handle our conditionals (they all defaults to ON)...
+    # And then, handle our conditionals...
     args << '-DENABLE_NETTLE=OFF' unless build.with? 'nettle'
+    args << '-DENABLE_NETTLE=ON'  if build.with? 'nettle'
     args << '-DENABLE_LZMA=OFF'   unless build.with? 'xz'
+    args << '-DENABLE_LZMA=ON'    if build.with? 'xz'
     args << '-DENABLE_EXPAT=OFF'  unless build.with? 'expat'
+    args << '-DENABLE_EXPAT=ON'   if build.with? 'expat'
 
     # We build in tree
     args << '.'
 
-    # FIXME: Doesn't pass any CFLAGS at all (not even a lone -O2). Doesn't seem to care about some of our cmake args either...
     system 'cmake', *args
     system 'make'
     system 'make', 'install'
