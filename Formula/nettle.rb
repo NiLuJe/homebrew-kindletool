@@ -13,7 +13,7 @@ class Nettle < Formula
     # Don't add -ggdb3 to the CFLAGS!
     inreplace 'configure.ac', 'CFLAGS="$CFLAGS -ggdb3"', 'true'
     
-    system './bootstrap'
+    system './.bootstrap'
     system './configure', "--prefix=#{prefix}",
                           '--enable-shared',
                           '--enable-public-key',
