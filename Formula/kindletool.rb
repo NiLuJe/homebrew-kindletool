@@ -12,7 +12,7 @@ class Kindletool < Formula
   depends_on 'NiLuJe/kindletool/nettle'
 
   def install
-    system "make"
-    system "make", "install", "DESTDIR=#{prefix}"
+    system 'make'
+    system 'make', 'install', "DESTDIR=#{prefix}"
   end
 end
