@@ -43,14 +43,14 @@ class Libarchive < Formula
         ]
 
     # And then, handle our conditionals (they all defaults to ON)...
-    args << '-DENABLE_NETTLE=OFF' unless build.with? 'NiLuJe/kindletool/nettle'
+    args << '-DENABLE_NETTLE=OFF' unless build.with? 'nettle'
     args << '-DENABLE_LZMA=OFF'   unless build.with? 'xz'
     args << '-DENABLE_EXPAT=OFF'  unless build.with? 'expat'
 
     # We build in tree
     args << '.'
 
-    # FIXME: Doesn't pass any CFLAGS at all (not even a lone -O2). Don't seem to care about our cmake args either...
+    # FIXME: Doesn't pass any CFLAGS at all (not even a lone -O2). Doesn't seem to care about some of our cmake args either...
     system 'cmake', *args
     system 'make'
     system 'make', 'install'
