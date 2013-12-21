@@ -12,10 +12,13 @@ class Kindletool < Formula
   depends_on 'NiLuJe/kindletool/nettle'
 
   def install
-    # FIXME: Doesn't find libarchive via pkg-config
-    # FIXME: Doesn't appear to have CPPFLAGS, CFLAGS @ LDFLAGS set (:??)
-    # FIXME: Falls back to a dumb prefix, Homebrew doesn't actually link anything useful in /usr/local...
+    # Superenv doesn't append keg_only packages to the pkg-config searchpath...
+    ENV.append 'PKG_CONFIG_PATH', "#{Formula.factory('NiLuJe/kindletool/libarchive').opt_prefix}/lib/pkgconfig"
+    # Superenv kills *FLAGS from the env, which breaks our Makefile...
+    ENV['CPPFLAGS'] = ''
+    ENV['CFLAGS'] = '-O2 ${HOMEBREW_OPTFLAGS}'
+    
     system 'make'
-    system 'make', 'install', "DESTDIR=#{prefix}"
+    system 'make', 'install', "DESTDIR=#{prefix}", "PREFIX=/usr"
   end
 end
