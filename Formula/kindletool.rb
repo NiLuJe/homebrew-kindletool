@@ -15,8 +15,10 @@ class Kindletool < Formula
     # Superenv doesn't append keg_only packages to the pkg-config searchpath...
     ENV.append 'PKG_CONFIG_PATH', ":#{Formula.factory('NiLuJe/kindletool/libarchive').opt_prefix}/lib/pkgconfig"
     # Superenv kills *FLAGS from the env, which breaks our Makefile...
-    ENV['CPPFLAGS'] = ''
     ENV['CFLAGS'] = '-O2 ${HOMEBREW_OPTFLAGS}'
+    # Those need to be set for our Makefile's logic.
+    ENV['CPPFLAGS'] = ''
+    ENV['LDFLAGS'] = ''
     
     system 'make'
     system 'make', 'install', "DESTDIR=#{prefix}", "PREFIX=/usr"
