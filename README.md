@@ -23,3 +23,10 @@ While kindletool should work with the current stable releases of libarchive & ne
 * Install KindleTool @ git master
 
 		brew install kindletool --HEAD
+
+## Important Note:
+
+Cf. https://github.com/Homebrew/homebrew/pull/19920
+
+There's a reason nettle hasn't yet been updated in the main Homebrew tree: the sover was bumped.
+So remember that this tweaked formula *will* break all your reverse dependencies on nettle!
