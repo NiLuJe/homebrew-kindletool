@@ -12,8 +12,8 @@ class Kindletool < Formula
   depends_on 'NiLuJe/kindletool/nettle'
 
   def install
-    # Superenv doesn't append keg_only packages to the pkg-config searchpath...
-    ENV.append 'PKG_CONFIG_PATH', ":#{Formula.factory('libarchive').opt_prefix}/lib/pkgconfig"
+    # Superenv doesn't append keg_only packages to the pkg-config searchpath... Note the null separator, pkg-config deals very badly with spaces ;p!
+    ENV.append 'PKG_CONFIG_PATH', ":#{Formula.factory('libarchive').opt_prefix}/lib/pkgconfig", ''
     # Superenv kills *FLAGS from the env, which breaks our Makefile...
     ENV['CFLAGS'] = '-O2 ${HOMEBREW_OPTFLAGS}'
     # Those need to be set for our Makefile's logic.
