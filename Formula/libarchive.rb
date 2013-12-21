@@ -50,6 +50,7 @@ class Libarchive < Formula
     # We build in tree
     args << '.'
 
+    # FIXME: Doesn't pass any CFLAGS at all (not even a lone -O2). Don't seem to care about our cmake args either...
     system 'cmake', *args
     system 'make'
     system 'make', 'install'

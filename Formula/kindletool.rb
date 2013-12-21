@@ -12,6 +12,9 @@ class Kindletool < Formula
   depends_on 'NiLuJe/kindletool/nettle'
 
   def install
+    # FIXME: Doesn't find libarchive via pkg-config
+    # FIXME: Doesn't appear to have CPPFLAGS, CFLAGS @ LDFLAGS set (:??)
+    # FIXME: falls back to a dumb prefix, Homebrew doesn't actually link anything useful in /usr/local...
     system 'make'
     system 'make', 'install', "DESTDIR=#{prefix}"
   end
