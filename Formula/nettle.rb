@@ -17,7 +17,8 @@ class Nettle < Formula
     system './configure', "--prefix=#{prefix}",
                           '--enable-shared',
                           '--enable-public-key',
-                          '--disable-openssl'
+                          '--disable-openssl',
+                          '--disable-documentation'
     system 'make'
     system 'make', 'install'
     system 'make', 'check'
