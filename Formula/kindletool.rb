@@ -12,7 +12,7 @@ class Kindletool < Formula
   depends_on 'NiLuJe/kindletool/nettle'
 
   def install
-    # FIXME: Check that gmp gets included properly (after system includes). Since this is a noop w/ superenv, check with env std
+    # NOTE: Leave my damn warnings alone! (noop with superenv)
     ENV.enable_warnings
 
     system 'make'
