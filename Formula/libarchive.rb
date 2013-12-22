@@ -30,8 +30,6 @@ class Libarchive < Formula
     args = [
           "--prefix=#{prefix}",
           '--enable-shared',
-          '--with-xattr',
-          '--with-acl',
           '--with-zlib',
           '--with-bz2lib',
           '--with-iconv',
@@ -40,14 +38,11 @@ class Libarchive < Formula
           ]
 
     # And then, handle our conditionals...
-    args << '--without-nettle'                    unless build.with? 'nettle'
-    args << '--with-nettle'                       if build.with? 'nettle'
-    args << '--without-lzma'                      unless build.with? 'xz'
-    args << '--with-lzma'                         if build.with? 'xz'
-    args << '--without-lzo2'                      unless build.with? 'lzo'
-    args << '--with-lzo2'                         if build.with? 'lzo'
-    args << [ '--without-expat', '--with-xml2' ]  unless build.with? 'expat'
-    args << [ '--with-expat', '--without-xml2' ]  if build.with? 'expat'
+    args << '--without-nettle'  unless build.with? 'nettle'
+    args << '--without-lzma'    unless build.with? 'xz'
+    args << '--without-lzo2'    unless build.with? 'lzo'
+    args << '--without-expat'   unless build.with? 'expat'
+    args << '--without-xml2'    if build.with? 'expat'
 
     system './configure', *args
     system 'make'
