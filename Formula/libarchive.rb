@@ -18,12 +18,10 @@ class Libarchive < Formula
   depends_on :libxml2 if build.without? 'expat'
 
   def patches
-    # Fixes issue 317, the build with autotools, and generate a pkg-config file when usig CMake.
-    [
-        "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-fix-issue-317.patch",
-        "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-fix-autotools-build.patch" if build.head?,
-        "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-cmake-pkgconfig.patch" if build.head?,
-    ]
+    # Fix issue 317
+    "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-fix-issue-317.patch" unless build.head?
+    # Fix issue 317, the build with autotools, and generate a pkg-config file when usig CMake.
+    "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-patch-bundle.patch" if build.head?
   end
 
   def install
