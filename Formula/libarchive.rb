@@ -23,8 +23,8 @@ class Libarchive < Formula
   end
 
   def install
-    # We need to autoreconf (even w/ the stable release)
-    system './build/autogen.sh'
+    # We need to autoreconf for git checkouts
+    system './build/autogen.sh' if build.head?
 
     # Set a bunch of defaults
     args = [
