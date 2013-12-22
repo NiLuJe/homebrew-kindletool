@@ -9,10 +9,8 @@ class Libarchive < Formula
 
   keg_only :provided_by_osx
 
-  depends_on 'cmake' => :build
   depends_on 'xz' => :recommended
-  # Make this a hard dep, there's no conditional to handle it w/ CMake...
-  depends_on 'lzo'
+  depends_on 'lzo' => :recommended
   depends_on 'NiLuJe/kindletool/nettle' => :recommended
   depends_on 'expat' => :recommended
   depends_on :libxml2 if build.without? 'expat'
@@ -25,36 +23,33 @@ class Libarchive < Formula
   end
 
   def install
-    # Use the CMake buildsystem, to avoid issues when building HEAD
-    # Make sure it doesn't choke on Homebrew's build type...
-    inreplace 'CMakeLists.txt', 'Debug|Release|RelWithDebInfo|MinSizeRel', 'None|Debug|Release|RelWithDebInfo|MinSizeRel'
+    # We need to autoreconf for git checkouts
+    system './build/autogen.sh' if build.head?
 
-    # Set a bunch of defaults...
-    args = std_cmake_args + %W[
-          -DENABLE_TEST=OFF
-          -DBUILD_TESTING=OFF
-          -DENABLE_TAR=ON
-          -DENABLE_XATTR=ON
-          -DENABLE_ACL=ON
-          -DENABLE_ICONV=ON
-          -DENABLE_CPIO=ON
-          -DENABLE_OPENSSL=OFF
-          -DENABLE_ZLIB=ON
-          -DENABLE_BZip2=ON
-        ]
+    # Set a bunch of defaults
+    args = [
+          "--prefix=#{prefix}",
+          '--enable-shared',
+          '--with-xattr',
+          '--with-acl',
+          '--with-zlib',
+          '--with-bz2lib',
+          '--with-iconv',
+          '--without-openssl',
+          '--without-lzmadec'
+          ]
 
     # And then, handle our conditionals...
-    args << '-DENABLE_NETTLE=OFF' unless build.with? 'nettle'
-    args << '-DENABLE_NETTLE=ON'  if build.with? 'nettle'
-    args << '-DENABLE_LZMA=OFF'   unless build.with? 'xz'
-    args << '-DENABLE_LZMA=ON'    if build.with? 'xz'
-    args << '-DENABLE_EXPAT=OFF'  unless build.with? 'expat'
-    args << '-DENABLE_EXPAT=ON'   if build.with? 'expat'
+    args << '--without-nettle'                    unless build.with? 'nettle'
+    args << '--with-nettle'                       if build.with? 'nettle'
+    args << '--without-lzma'                      unless build.with? 'xz'
+    args << '--with-lzma'                         if build.with? 'xz'
+    args << '--without-lzo2'                      unless build.with? 'lzo'
+    args << '--with-lzo2'                         if build.with? 'lzo'
+    args << [ '--without-expat', '--with-xml2' ]  unless build.with? 'expat'
+    args << [ '--with-expat', '--without-xml2' ]  if build.with? 'expat'
 
-    # We build in tree
-    args << '.'
-
-    system 'cmake', *args
+    system './configure', *args
     system 'make'
     system 'make', 'install'
   end
