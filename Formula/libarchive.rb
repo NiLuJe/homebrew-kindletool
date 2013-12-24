@@ -15,13 +15,6 @@ class Libarchive < Formula
   depends_on 'expat' => :recommended
   depends_on :libxml2 if build.without? 'expat'
 
-  def patches
-    # Fix issue 317
-    "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-fix-issue-317.patch" unless build.head?
-    # Fix issue 317, the build with autotools, and generate a pkg-config file when usig CMake.
-    "https://github.com/NiLuJe/KindleTool/raw/master/tools/libarchive-patch-bundle.patch" if build.head?
-  end
-
   def install
     # We need to autoreconf for git checkouts
     system './build/autogen.sh' if build.head?
