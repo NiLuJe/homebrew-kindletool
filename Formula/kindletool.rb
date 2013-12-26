@@ -10,7 +10,7 @@ class GitVersionWriter
   def write
     ohai "Generating VERSION file from Homebrew's git cache"
     git_revision
-    File.mv("#{git_cache}/KindleTool/VERSION", 'VERSION')
+    FileUtils.mv("#{git_cache}/KindleTool/VERSION", 'VERSION')
   end
 
   private
