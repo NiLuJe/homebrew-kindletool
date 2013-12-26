@@ -1,29 +1,5 @@
 require 'formula'
 
-# This is stolen^Winspired from mpv's Formula
-# (https://github.com/mpv-player/homebrew-mpv/blob/master/Formula/mpv.rb)
-class GitVersionWriter
-  def initialize(downloader)
-    @downloader = downloader
-  end
-
-  def write
-    ohai "Generating VERSION file from Homebrew's git cache"
-    git_revision
-    FileUtils.mv("#{git_cache}/KindleTool/VERSION", 'VERSION')
-  end
-
-  private
-  def git_revision
-    system 'cd', "#{git_cache}/KindleTool"
-    system './version.sh', 'PMS'
-  end
-
-  def git_cache
-    @downloader.cached_location
-  end
-end
-
 class Kindletool < Formula
   homepage 'https://github.com/NiLuJe/KindleTool'
   url 'https://github.com/NiLuJe/KindleTool/archive/v1.6.0.tar.gz'
@@ -39,8 +15,8 @@ class Kindletool < Formula
     # NOTE: Leave my damn warnings alone! (noop with superenv)
     ENV.enable_warnings
     
-    # Get a proper version tag
-    GitVersionWriter.new(@downloader).write
+    # Make sure the buildsystem will be able to generate a proper version tag
+    ENV['GIT_DIR'] = cached_download/'.git'
 
     system 'make'
     system 'make', 'install', "DESTDIR=#{prefix}", 'PREFIX=/.'
