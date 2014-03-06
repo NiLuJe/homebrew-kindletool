@@ -7,11 +7,13 @@ class Nettle < Formula
 
   head 'git://git.lysator.liu.se/nettle/nettle.git'
 
-  depends_on :autoconf
+  head do
+    depends_on :autoconf
+  end
   depends_on 'gmp'
 
   def install
-    system './.bootstrap'
+    system './.bootstrap' if build.head?
     system './configure', "--prefix=#{prefix}",
                           '--enable-shared',
                           '--enable-public-key',
