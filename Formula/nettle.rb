@@ -7,6 +7,7 @@ class Nettle < Formula
 
   head 'git://git.lysator.liu.se/nettle/nettle.git'
 
+  depends_on :autoconf
   depends_on 'gmp'
 
   def install

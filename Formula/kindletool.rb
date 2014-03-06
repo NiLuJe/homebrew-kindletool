@@ -14,7 +14,7 @@ class Kindletool < Formula
   def install
     # NOTE: Leave my damn warnings alone! (noop with superenv)
     ENV.enable_warnings
-    
+
     # Make sure the buildsystem will be able to generate a proper version tag
     ENV['GIT_DIR'] = cached_download/'.git'
 
