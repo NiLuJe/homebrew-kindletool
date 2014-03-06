@@ -8,6 +8,15 @@ class Kindletool < Formula
   head 'https://github.com/NiLuJe/KindleTool.git', :shallow => false
 
   depends_on 'pkg-config' => :build
+  # FIXME: Recent brew checkouts barf on this.
+  # Best guess: because besides our hard-depend on nettle,
+  # libarchive also depends on nettle by default through a :recommended
+  # Work around this by removing the hard-dep on nettle, and instead
+  # depending on libarchive w/ nettle.
+  # While technically wrong from KindleTool's point of view,
+  # (we do need nettle for ourselves, and not libarchive's nettle support),
+  # from brew's point of view, it achieves the same thing: ensuring we actually
+  # pull both libarchive & nettle as a dep.
   #depends_on 'NiLuJe/kindletool/nettle'
   depends_on 'NiLuJe/kindletool/libarchive' => 'with-nettle'
 
