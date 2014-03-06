@@ -8,8 +8,8 @@ class Kindletool < Formula
   head 'https://github.com/NiLuJe/KindleTool.git', :shallow => false
 
   depends_on 'pkg-config' => :build
-  depends_on 'NiLuJe/kindletool/libarchive'
   depends_on 'NiLuJe/kindletool/nettle'
+  depends_on 'NiLuJe/kindletool/libarchive'
 
   def install
     # NOTE: Leave my damn warnings alone! (noop with superenv)
