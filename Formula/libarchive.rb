@@ -10,7 +10,7 @@ class Libarchive < Formula
   keg_only :provided_by_osx
 
   option 'with-nettle', 'Build with nettle support'
-  
+
   head do
     depends_on :autoconf => :build
     depends_on :automake => :build
