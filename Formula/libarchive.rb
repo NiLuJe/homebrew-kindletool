@@ -9,6 +9,9 @@ class Libarchive < Formula
 
   keg_only :provided_by_osx
 
+  head do
+    depends_on :autoconf
+  end
   depends_on 'xz' => :recommended
   depends_on 'lzo' => :recommended
   depends_on 'NiLuJe/kindletool/nettle' => :recommended
