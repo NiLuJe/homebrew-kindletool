@@ -10,8 +10,9 @@ class Libarchive < Formula
   keg_only :provided_by_osx
 
   head do
-    depends_on :autoconf
-    depends_on :automake
+    depends_on :autoconf => :build
+    depends_on :automake => :build
+    depends_on :libtool => :build    
   end
   depends_on 'xz' => :recommended
   depends_on 'lzo' => :recommended
@@ -35,10 +36,10 @@ class Libarchive < Formula
           ]
 
     # And then, handle our conditionals...
-    args << '--without-nettle'  unless build.with? 'nettle'
-    args << '--without-lzma'    unless build.with? 'xz'
-    args << '--without-lzo2'    unless build.with? 'lzo'
-    args << '--without-expat'   unless build.with? 'expat'
+    args << '--without-nettle'  if build.without? 'nettle'
+    args << '--without-lzma'    if build.without? 'xz'
+    args << '--without-lzo2'    if build.without? 'lzo'
+    args << '--without-expat'   if build.without? 'expat'
     args << '--without-xml2'    if build.with? 'expat'
 
     system './configure', *args

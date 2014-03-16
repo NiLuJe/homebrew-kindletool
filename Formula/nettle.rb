@@ -8,7 +8,7 @@ class Nettle < Formula
   head 'git://git.lysator.liu.se/nettle/nettle.git'
 
   head do
-    depends_on :autoconf
+    depends_on :autoconf => :build
   end
   depends_on 'gmp'
 
