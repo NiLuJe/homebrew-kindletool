@@ -9,7 +9,17 @@ class Kindletool < Formula
 
   depends_on 'pkg-config' => :build
   depends_on 'NiLuJe/kindletool/libarchive'
-  depends_on 'NiLuJe/kindletool/nettle'
+  # FIXME: Call me when homebrew stops getting its panties in a bunch...
+  # If we uncomment this perfectly fine and proper dep, we end up with a
+  # (very helpful...) 'Error: Operation already in progress for nettle'...
+  # Bets guess: homebrew doesn't like the fact that libarchive already depends
+  # on nettle through a :recommended...
+  # Current workaround: just comment the dep, and hope users follow the README,
+  # because the workaround of depending on libarchive --with-nettle is ugly and wrong,
+  # and also annoying, because we have to create a bogus with-nettle option in libarchive
+  # to satisfy this conditional, since :recommended only create a without-* option...
+  # Levae this in, commented, so that brew audit complains about it if I ever forget about it...
+  #depends_on 'NiLuJe/kindletool/nettle'
 
   def install
     # NOTE: Leave my damn warnings alone! (noop with superenv)
