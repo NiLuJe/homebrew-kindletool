@@ -11,6 +11,7 @@ class Libarchive < Formula
 
   head do
     depends_on :autoconf
+    depends_on :automake
   end
   depends_on 'xz' => :recommended
   depends_on 'lzo' => :recommended
