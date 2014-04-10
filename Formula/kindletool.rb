@@ -18,7 +18,7 @@ class Kindletool < Formula
   # and also annoying, because we have to create a bogus with-nettle option in libarchive
   # to satisfy this conditional, since :recommended only create a without-* option...
   # Leave this in, commented, so that brew audit complains about it if I ever forget about it...
-  depends_on 'NiLuJe/kindletool/nettle'
+  #depends_on 'NiLuJe/kindletool/nettle'
   depends_on 'NiLuJe/kindletool/libarchive'
 
   def install
