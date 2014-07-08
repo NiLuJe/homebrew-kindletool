@@ -2,10 +2,10 @@ require 'formula'
 
 class Nettle < Formula
   homepage 'http://www.lysator.liu.se/~nisse/nettle/'
-  url 'http://www.lysator.liu.se/~nisse/archive/nettle-2.7.1.tar.gz'
-  sha1 'e7477df5f66e650c4c4738ec8e01c2efdb5d1211'
+  url 'https://ftp.gnu.org/gnu/nettle/nettle-3.0.tar.gz'
+  sha1 '0320ca758ac1fd9f4691064c11de78c8abb2ade3'
 
-  head 'git://git.lysator.liu.se/nettle/nettle.git'
+  head 'https://git.lysator.liu.se/nettle/nettle.git'
 
   head do
     depends_on :autoconf => :build
