@@ -2,8 +2,8 @@ require 'formula'
 
 class Nettle < Formula
   homepage 'http://www.lysator.liu.se/~nisse/nettle/'
-  url 'https://ftp.gnu.org/gnu/nettle/nettle-3.0.tar.gz'
-  sha1 '0320ca758ac1fd9f4691064c11de78c8abb2ade3'
+  url 'https://ftp.gnu.org/gnu/nettle/nettle-3.1.1.tar.gz'
+  sha1 '1836601393522124787e029466935408e22dd204'
 
   head 'https://git.lysator.liu.se/nettle/nettle.git'
 

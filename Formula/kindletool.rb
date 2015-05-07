@@ -2,8 +2,8 @@ require 'formula'
 
 class Kindletool < Formula
   homepage 'https://github.com/NiLuJe/KindleTool'
-  url 'https://github.com/NiLuJe/KindleTool/archive/v1.6.3.tar.gz'
-  sha1 '8701c50159cc899121d0a5ccee30911d050bfb09'
+  url 'https://github.com/NiLuJe/KindleTool/archive/v1.6.4.tar.gz'
+  sha1 'c2439561dc4ba99b84ce8b3b4e78ac805d8bb260'
 
   head 'https://github.com/NiLuJe/KindleTool.git', :shallow => false
 
