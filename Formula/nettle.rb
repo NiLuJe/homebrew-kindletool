@@ -2,13 +2,13 @@ require 'formula'
 
 class Nettle < Formula
   homepage 'http://www.lysator.liu.se/~nisse/nettle/'
-  url 'https://ftp.gnu.org/gnu/nettle/nettle-3.1.1.tar.gz'
-  sha1 '1836601393522124787e029466935408e22dd204'
+  url 'http://ftpmirror.gnu.org/nettle/nettle-3.1.1.tar.gz'
+  sha256 '5fd4d25d64d8ddcb85d0d897572af73b05b4d163c6cc49438a5bfbb8ff293d4c'
 
   head 'https://git.lysator.liu.se/nettle/nettle.git'
 
   head do
-    depends_on :autoconf => :build
+    depends_on 'autoconf' => :build
   end
   depends_on 'gmp'
 

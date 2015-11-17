@@ -3,16 +3,16 @@ require 'formula'
 class Libarchive < Formula
   homepage 'http://www.libarchive.org'
   url 'http://www.libarchive.org/downloads/libarchive-3.1.2.tar.gz'
-  sha1 '6a991777ecb0f890be931cec4aec856d1a195489'
+  sha256 'eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e'
 
   head 'https://github.com/libarchive/libarchive.git'
 
   keg_only :provided_by_osx
 
   head do
-    depends_on :autoconf => :build
-    depends_on :automake => :build
-    depends_on :libtool => :build
+    depends_on 'autoconf' => :build
+    depends_on 'automake' => :build
+    depends_on 'libtool' => :build
   end
   depends_on 'xz' => :recommended
   depends_on 'lzo' => :recommended
