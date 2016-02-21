@@ -27,7 +27,8 @@ class Nettle < Formula
 
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--enable-shared"
+                          "--enable-shared",
+                          "--disable-documentation"
     system "make"
     system "make", "install"
     system "make", "check"
