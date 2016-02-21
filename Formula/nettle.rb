@@ -25,10 +25,17 @@ class Nettle < Formula
 
     system "./.bootstrap" if build.head?
 
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
-                          "--enable-shared",
-                          "--disable-documentation"
+    # Set a bunch of defaults
+    args = [
+          "--disable-dependency-tracking",
+          "--prefix=#{prefix}",
+          "--enable-shared"
+          ]
+
+    # We need a TeX env to build docs from scratch...
+    args << "--disable-documentation" if build.head?
+
+    system "./configure", *args
     system "make"
     system "make", "install"
     system "make", "check"
