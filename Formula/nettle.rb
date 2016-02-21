@@ -1,26 +1,63 @@
-require 'formula'
-
 class Nettle < Formula
-  homepage 'http://www.lysator.liu.se/~nisse/nettle/'
-  url 'http://ftpmirror.gnu.org/nettle/nettle-3.1.1.tar.gz'
-  sha256 '5fd4d25d64d8ddcb85d0d897572af73b05b4d163c6cc49438a5bfbb8ff293d4c'
+  desc "Low-level cryptographic library"
+  homepage "http://www.lysator.liu.se/~nisse/nettle/"
+  url "http://ftpmirror.gnu.org/nettle/nettle-3.2.tar.gz"
+  mirror "https://ftp.gnu.org/gnu/nettle/nettle-3.2.tar.gz"
+  sha256 "ea4283def236413edab5a4cf9cf32adf540c8df1b9b67641cfc2302fca849d97"
 
-  head 'https://git.lysator.liu.se/nettle/nettle.git'
+  head "https://git.lysator.liu.se/nettle/nettle.git"
+
+  bottle do
+    cellar :any
+    sha256 "149db1957c10656b05dd887d70ec699dc5e3776790fd2208a37b3a6fafa47f66" => :el_capitan
+    sha256 "9d26a23ec1699a09d84dba677eba18944f9c7480e2061b36bb4c8ec2bca13a9e" => :yosemite
+    sha256 "f86d2cf88360585545fb7309c8d631717801d90ecdfd9fdaf094aff32f4829f5" => :mavericks
+  end
 
   head do
-    depends_on 'autoconf' => :build
+    depends_on "autoconf" => :build
   end
-  depends_on 'gmp'
+  depends_on "gmp"
 
   def install
-    system './.bootstrap' if build.head?
-    system './configure', "--prefix=#{prefix}",
-                          '--enable-shared',
-                          '--enable-public-key',
-                          '--disable-openssl',
-                          '--disable-documentation'
-    system 'make'
-    system 'make', 'install'
-    system 'make', 'check'
+    # OS X doesn't use .so libs. Emailed upstream 04/02/2016.
+    inreplace "testsuite/dlopen-test.c", "libnettle.so", "libnettle.dylib"
+
+    system "./.bootstrap" if build.head?
+
+    system "./configure", "--disable-dependency-tracking",
+                          "--prefix=#{prefix}",
+                          "--enable-shared"
+    system "make"
+    system "make", "install"
+    system "make", "check"
+  end
+
+  test do
+    (testpath/"test.c").write <<-EOS.undent
+      #include <nettle/sha1.h>
+      #include <stdio.h>
+
+      int main()
+      {
+        struct sha1_ctx ctx;
+        uint8_t digest[SHA1_DIGEST_SIZE];
+        unsigned i;
+
+        sha1_init(&ctx);
+        sha1_update(&ctx, 4, "test");
+        sha1_digest(&ctx, SHA1_DIGEST_SIZE, digest);
+
+        printf("SHA1(test)=");
+
+        for (i = 0; i<SHA1_DIGEST_SIZE; i++)
+          printf("%02x", digest[i]);
+
+        printf("\\n");
+        return 0;
+      }
+    EOS
+    system ENV.cc, "test.c", "-lnettle", "-o", "test"
+    system "./test"
   end
 end
