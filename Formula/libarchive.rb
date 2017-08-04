@@ -1,9 +1,8 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
   homepage "http://www.libarchive.org"
-  url "http://www.libarchive.org/downloads/libarchive-3.1.2.tar.gz"
-  mirror "https://github.com/libarchive/libarchive/archive/v3.1.2.tar.gz"
-  sha256 "eb87eacd8fe49e8d90c8fdc189813023ccc319c5e752b01fb6ad0cc7b2c53d5e"
+  url "https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz"
+  sha256 "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce"
 
   head "https://github.com/libarchive/libarchive.git"
 
@@ -13,18 +12,18 @@ class Libarchive < Formula
     depends_on "libtool" => :build
   end
   depends_on "xz" => :recommended
+  depends_on "lz4" => :optional
   depends_on "lzo" => :recommended
   depends_on "NiLuJe/kindletool/nettle" => :recommended
   depends_on "expat" => :recommended
   depends_on :libxml2 if build.without? "expat"
 
   bottle do
+    rebuild 1
     cellar :any
-    revision 1
-    sha256 "a73405a0d1395f88af0999215bb0cc342b09113f6270375c7b9fe0bbad870c57" => :el_capitan
-    sha256 "daf4fb57f9b01c4a0d3ac33ec5fcc59e133ce3b08e01caa6ffaa2e098ae1adad" => :yosemite
-    sha256 "2f640bcaaa7ea8f090b9d163bb0cabba69e3efb62ec5ca5547ccfc5980935f9e" => :mavericks
-    sha256 "a0da458477e1e080db4c7dc75326dd28fc40b2d9ba158d39089c079de4fefbdf" => :mountain_lion
+    sha256 "3afbbb3c4c12dcac7f55d7a038249e4553c4b13bb5c6a5251db1099277446490" => :sierra
+    sha256 "0805b457512f14129a12148c7ad4fc5880c7594515781bc2a11e3a5431c220ec" => :el_capitan
+    sha256 "8ef52679c4f98f7aa7ce0ecdb854d3fea70b46192011e447fabdde8aec5cd940" => :yosemite
   end
 
   keg_only :provided_by_osx
@@ -52,8 +51,13 @@ class Libarchive < Formula
     args << "--without-xml2"    if build.with? "expat"
 
     system "./configure", *args
-    system "make"
     system "make", "install"
+
+    # Just as apple does it.
+    ln_s bin/"bsdtar", bin/"tar"
+    ln_s bin/"bsdcpio", bin/"cpio"
+    ln_s man1/"bsdtar.1", man1/"tar.1"
+    ln_s man1/"bsdcpio.1", man1/"cpio.1"
   end
 
   test do
