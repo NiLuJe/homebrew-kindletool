@@ -1,8 +1,8 @@
 class Kindletool < Formula
   desc "Tool for creating/extracting Kindle updates and more"
   homepage "https://github.com/NiLuJe/KindleTool"
-  url "https://github.com/NiLuJe/KindleTool/archive/v1.6.4.tar.gz"
-  sha256 "1876e13f33fe1026c51632ce3602ef8a011738af9ed7ed933fd18767f967da21"
+  url "https://github.com/NiLuJe/KindleTool/archive/v1.6.5.tar.gz"
+  sha256 "949cbbd3390a10cb86ebff870a3e00566dbef33630fddb2cbd5ff81f90fb4030"
 
   head "https://github.com/NiLuJe/KindleTool.git", :shallow => false
 
