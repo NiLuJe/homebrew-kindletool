@@ -12,9 +12,9 @@ class Nettle < Formula
     sha256 "a8f3221e9f9281d5493e09b9cbbddc7038de24fbb6375e0255294cae822b866a" => :el_capitan
   end
 
-  head "https://git.lysator.liu.se/nettle/nettle.git" do
-    depends_on "autoconf" => :build
-  end
+  head "https://git.lysator.liu.se/nettle/nettle.git"
+  depends_on "autoconf" => :build
+
   depends_on "gmp"
 
   def install

@@ -12,13 +12,13 @@ class Libarchive < Formula
     sha256 "8ef52679c4f98f7aa7ce0ecdb854d3fea70b46192011e447fabdde8aec5cd940" => :yosemite
   end
 
-  head "https://github.com/libarchive/libarchive.git" do
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
-  end
-
+  head "https://github.com/libarchive/libarchive.git"
+  
   keg_only :provided_by_macos
+
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+  depends_on "libtool" => :build
 
   depends_on "xz" => :recommended
   depends_on "lz4" => :optional
