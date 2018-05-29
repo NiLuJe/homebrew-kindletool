@@ -4,6 +4,16 @@ class Libarchive < Formula
   url "https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz"
   sha256 "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce"
 
+  keg_only :provided_by_macos
+
+  bottle do
+    cellar :any
+    sha256 "ee8c56199da11b8e6ac30e577792288d729233dda36100dbd16192af656bff5d" => :high_sierra
+    sha256 "3afbbb3c4c12dcac7f55d7a038249e4553c4b13bb5c6a5251db1099277446490" => :sierra
+    sha256 "0805b457512f14129a12148c7ad4fc5880c7594515781bc2a11e3a5431c220ec" => :el_capitan
+    sha256 "8ef52679c4f98f7aa7ce0ecdb854d3fea70b46192011e447fabdde8aec5cd940" => :yosemite
+  end
+  
   head "https://github.com/libarchive/libarchive.git" do
     depends_on "autoconf" => :build
     depends_on "automake" => :build
@@ -15,16 +25,6 @@ class Libarchive < Formula
   depends_on "NiLuJe/kindletool/nettle" => :recommended
   depends_on "expat" => :recommended
   depends_on :libxml2 if build.without? "expat"
-
-  bottle do
-    cellar :any
-    sha256 "ee8c56199da11b8e6ac30e577792288d729233dda36100dbd16192af656bff5d" => :high_sierra
-    sha256 "3afbbb3c4c12dcac7f55d7a038249e4553c4b13bb5c6a5251db1099277446490" => :sierra
-    sha256 "0805b457512f14129a12148c7ad4fc5880c7594515781bc2a11e3a5431c220ec" => :el_capitan
-    sha256 "8ef52679c4f98f7aa7ce0ecdb854d3fea70b46192011e447fabdde8aec5cd940" => :yosemite
-  end
-
-  keg_only :provided_by_macos
 
   def install
     # We need to autoreconf for git checkouts

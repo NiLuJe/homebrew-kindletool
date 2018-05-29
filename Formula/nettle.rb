@@ -5,8 +5,6 @@ class Nettle < Formula
   mirror "https://ftpmirror.gnu.org/nettle/nettle-3.4.tar.gz"
   sha256 "ae7a42df026550b85daca8389b6a60ba6313b0567f374392e54918588a411e94"
 
-  head "https://git.lysator.liu.se/nettle/nettle.git"
-
   bottle do
     cellar :any
     sha256 "d5f8ed7557a26c0a2a34031b10a34b12c0c8f518782ed1d17fb13930ecfcdf45" => :high_sierra
@@ -14,7 +12,7 @@ class Nettle < Formula
     sha256 "a8f3221e9f9281d5493e09b9cbbddc7038de24fbb6375e0255294cae822b866a" => :el_capitan
   end
 
-  head do
+  head "https://git.lysator.liu.se/nettle/nettle.git" do
     depends_on "autoconf" => :build
   end
   depends_on "gmp"
