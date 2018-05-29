@@ -4,6 +4,8 @@ class Libarchive < Formula
   url "https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz"
   sha256 "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce"
 
+  head "https://github.com/libarchive/libarchive.git"
+
   bottle do
     cellar :any
     sha256 "ee8c56199da11b8e6ac30e577792288d729233dda36100dbd16192af656bff5d" => :high_sierra
@@ -12,8 +14,6 @@ class Libarchive < Formula
     sha256 "8ef52679c4f98f7aa7ce0ecdb854d3fea70b46192011e447fabdde8aec5cd940" => :yosemite
   end
 
-  head "https://github.com/libarchive/libarchive.git"
-  
   keg_only :provided_by_macos
 
   depends_on "autoconf" => :build
