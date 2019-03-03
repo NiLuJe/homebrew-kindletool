@@ -23,6 +23,7 @@ class Libarchive < Formula
   depends_on "xz"
 
   def install
+    system "./build/autogen.sh" if build.head?
     system "./configure",
            "--prefix=#{prefix}",
            "--without-lzo2",    # Use lzop binary instead of lzo2 due to GPL
