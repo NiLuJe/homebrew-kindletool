@@ -8,8 +8,8 @@ class Kindletool < Formula
 
   depends_on "pkg-config" => :build
 
-  depends_on ":nettle"
-  depends_on ":libarchive"
+  depends_on :nettle
+  depends_on :libarchive
 
   def install
     # Make sure the buildsystem will be able to generate a proper version tag
