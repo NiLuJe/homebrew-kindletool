@@ -1,17 +1,17 @@
 class Libarchive < Formula
   desc "Multi-format archive and compression library"
-  homepage "http://www.libarchive.org"
-  url "https://www.libarchive.org/downloads/libarchive-3.3.2.tar.gz"
-  sha256 "ed2dbd6954792b2c054ccf8ec4b330a54b85904a80cef477a1c74643ddafa0ce"
+  homepage "https://www.libarchive.org"
+  url "https://www.libarchive.org/downloads/libarchive-3.3.3.tar.gz"
+  sha256 "ba7eb1781c9fbbae178c4c6bad1c6eb08edab9a1496c64833d1715d022b30e2e"
 
   head "https://github.com/libarchive/libarchive.git"
 
   bottle do
     cellar :any
-    sha256 "ee8c56199da11b8e6ac30e577792288d729233dda36100dbd16192af656bff5d" => :high_sierra
-    sha256 "3afbbb3c4c12dcac7f55d7a038249e4553c4b13bb5c6a5251db1099277446490" => :sierra
-    sha256 "0805b457512f14129a12148c7ad4fc5880c7594515781bc2a11e3a5431c220ec" => :el_capitan
-    sha256 "8ef52679c4f98f7aa7ce0ecdb854d3fea70b46192011e447fabdde8aec5cd940" => :yosemite
+    rebuild 1
+    sha256 "0a789c0f212b5e1d06acc213bda685bf97e3036f89d8f4d2580b29bac32b3d3d" => :mojave
+    sha256 "078eed374d5df2b561c6d36fe7284946f0556ba450e86fb048ca443cd4e3d894" => :high_sierra
+    sha256 "fc7b2124e4d4bdb8df5e41e9b5992d151e7505e71e790f9e53ac8a7cdd55490d" => :sierra
   end
 
   keg_only :provided_by_macos
@@ -20,7 +20,7 @@ class Libarchive < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
 
-  depends_on "xz" => :recommended
+  depends_on "xz"
   depends_on "lz4" => :optional
   depends_on "lzo" => :recommended
   depends_on "NiLuJe/kindletool/nettle" => :recommended
@@ -38,16 +38,14 @@ class Libarchive < Formula
           "--with-zlib",
           "--with-bz2lib",
           "--with-iconv",
-          "--without-openssl",
-          "--without-lzmadec"
+          "--without-openssl" # mtree hashing now possible without OpenSSL
           ]
 
     # And then, handle our conditionals...
-    args << "--without-nettle"  if build.without? "nettle"
-    args << "--without-lzma"    if build.without? "xz"
-    args << "--without-lzo2"    if build.without? "lzo"
-    args << "--without-expat"   if build.without? "expat"
-    args << "--without-xml2"    if build.with? "expat"
+    args << "--without-nettle"  if build.without? "nettle" # xar hashing option but GPLv3
+    args << "--without-lzo2"    if build.without? "lzo"    # Use lzop binary instead of lzo2 due to GPL
+    args << "--without-expat"   if build.without? "expat"  # best xar hashing option
+    args << "--without-xml2"    if build.with? "expat"     # xar hashing option but tricky dependencies
 
     system "./configure", *args
     system "make", "install"
