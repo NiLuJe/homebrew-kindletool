@@ -21,33 +21,16 @@ class Libarchive < Formula
   depends_on "libtool" => :build
 
   depends_on "xz"
-  depends_on "lz4" => :optional
-  depends_on "lzo" => :recommended
-  depends_on "NiLuJe/kindletool/nettle" => :recommended
-  depends_on "expat" => :recommended
-  depends_on :libxml2 if build.without? "expat"
 
   def install
-    # We need to autoreconf for git checkouts
-    system "./build/autogen.sh" if build.head?
+    system "./configure",
+           "--prefix=#{prefix}",
+           "--without-lzo2",    # Use lzop binary instead of lzo2 due to GPL
+           "--without-nettle",  # xar hashing option but GPLv3
+           "--without-xml2",    # xar hashing option but tricky dependencies
+           "--without-openssl", # mtree hashing now possible without OpenSSL
+           "--with-expat"       # best xar hashing option
 
-    # Set a bunch of defaults
-    args = [
-          "--prefix=#{prefix}",
-          "--enable-shared",
-          "--with-zlib",
-          "--with-bz2lib",
-          "--with-iconv",
-          "--without-openssl" # mtree hashing now possible without OpenSSL
-          ]
-
-    # And then, handle our conditionals...
-    args << "--without-nettle"  if build.without? "nettle" # xar hashing option but GPLv3
-    args << "--without-lzo2"    if build.without? "lzo"    # Use lzop binary instead of lzo2 due to GPL
-    args << "--without-expat"   if build.without? "expat"  # best xar hashing option
-    args << "--without-xml2"    if build.with? "expat"     # xar hashing option but tricky dependencies
-
-    system "./configure", *args
     system "make", "install"
 
     # Just as apple does it.
