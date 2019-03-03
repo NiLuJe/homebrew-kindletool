@@ -35,10 +35,10 @@ class Nettle < Formula
 
     # Set a bunch of defaults
     args = [
-          "--disable-dependency-tracking",
-          "--prefix=#{prefix}",
-          "--enable-shared"
-          ]
+      "--disable-dependency-tracking",
+      "--prefix=#{prefix}",
+      "--enable-shared",
+    ]
 
     # We need a TeX env to build docs from scratch...
     args << "--disable-documentation" if build.head?
