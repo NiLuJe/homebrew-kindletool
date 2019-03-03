@@ -1,17 +1,17 @@
 class Nettle < Formula
   desc "Low-level cryptographic library"
-  homepage "http://www.lysator.liu.se/~nisse/nettle/"
-  url "https://ftp.gnu.org/gnu/nettle/nettle-3.4.tar.gz"
-  mirror "https://ftpmirror.gnu.org/nettle/nettle-3.4.tar.gz"
-  sha256 "ae7a42df026550b85daca8389b6a60ba6313b0567f374392e54918588a411e94"
+  homepage "https://www.lysator.liu.se/~nisse/nettle/"
+  url "https://ftp.gnu.org/gnu/nettle/nettle-3.4.1.tar.gz"
+  mirror "https://ftpmirror.gnu.org/nettle/nettle-3.4.1.tar.gz"
+  sha256 "f941cf1535cd5d1819be5ccae5babef01f6db611f9b5a777bae9c7604b8a92ad"
 
   head "https://git.lysator.liu.se/nettle/nettle.git"
 
   bottle do
     cellar :any
-    sha256 "d5f8ed7557a26c0a2a34031b10a34b12c0c8f518782ed1d17fb13930ecfcdf45" => :high_sierra
-    sha256 "d03831c4b2217900338b2316bf73b0074271b0007c2aaaa8fddf606a5f71d7ee" => :sierra
-    sha256 "a8f3221e9f9281d5493e09b9cbbddc7038de24fbb6375e0255294cae822b866a" => :el_capitan
+    sha256 "9e7f78a4cc96ca57f75ca1d37cc12c11655b7e0aa7109da4becd0408a1e2ed6b" => :mojave
+    sha256 "4327e8e4c4760653113f0bc4a7b0bada37b2d820f6c3ba759832e59ed553cb9a" => :high_sierra
+    sha256 "4624e3b0964d695408cf45330bab8cda2536002834f96202f7a37007407123fd" => :sierra
   end
 
   depends_on "autoconf" => :build
@@ -21,6 +21,15 @@ class Nettle < Formula
   def install
     # macOS doesn't use .so libs. Emailed upstream 04/02/2016.
     inreplace "testsuite/dlopen-test.c", "libnettle.so", "libnettle.dylib"
+
+    # The LLVM shipped with Xcode/CLT 10+ compiles binaries/libraries with
+    # ___chkstk_darwin, which upsets nettle's expected symbol check.
+    # https://github.com/Homebrew/homebrew-core/issues/28817#issuecomment-396762855
+    # https://lists.lysator.liu.se/pipermail/nettle-bugs/2018/007300.html
+    if DevelopmentTools.clang_build_version >= 1000
+      inreplace "testsuite/symbols-test", "get_pc_thunk",
+                                          "get_pc_thunk|(_*chkstk_darwin)"
+    end
 
     system "./.bootstrap" if build.head?
 
