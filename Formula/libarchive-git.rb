@@ -1,4 +1,4 @@
-class Libarchive < Formula
+class LibarchiveGit < Formula
   desc "Multi-format archive and compression library"
   homepage "https://www.libarchive.org"
   url "https://www.libarchive.org/downloads/libarchive-3.4.1.tar.xz"
