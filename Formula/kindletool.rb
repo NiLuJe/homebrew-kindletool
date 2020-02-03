@@ -8,8 +8,8 @@ class Kindletool < Formula
 
   depends_on "pkg-config" => :build
 
-  depends_on "nettle"
-  depends_on "NiLuJe/kindletool/libarchive"
+  depends_on "NiLuJe/kindletool/nettle-git"
+  depends_on "NiLuJe/kindletool/libarchive-git"
 
   def install
     # Make sure the buildsystem will be able to generate a proper version tag
