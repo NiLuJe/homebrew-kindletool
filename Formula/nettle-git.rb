@@ -19,7 +19,7 @@ class NettleGit < Formula
 
   def install
     # macOS doesn't use .so libs. Emailed upstream 04/02/2016.
-    inreplace "testsuite/dlopen-test.c", "libnettle.so", "libnettle.dylib"
+    inreplace "testsuite/dlopen-test.c", "libnettle.so", "libnettle.dylib" if build.head?
 
     # The LLVM shipped with Xcode/CLT 10+ compiles binaries/libraries with
     # ___chkstk_darwin, which upsets nettle's expected symbol check.
