@@ -11,7 +11,7 @@ class Nettle < Formula
     cellar :any
   end
 
-  keg_only “available in core”
+  keg_only "available in core"
 
   depends_on "autoconf" => :build
 
