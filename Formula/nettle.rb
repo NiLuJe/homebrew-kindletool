@@ -1,17 +1,14 @@
 class Nettle < Formula
   desc "Low-level cryptographic library"
   homepage "https://www.lysator.liu.se/~nisse/nettle/"
-  url "https://ftp.gnu.org/gnu/nettle/nettle-3.4.1.tar.gz"
-  mirror "https://ftpmirror.gnu.org/nettle/nettle-3.4.1.tar.gz"
-  sha256 "f941cf1535cd5d1819be5ccae5babef01f6db611f9b5a777bae9c7604b8a92ad"
+  url "https://ftp.gnu.org/gnu/nettle/nettle-3.5.1.tar.gz"
+  mirror "https://ftpmirror.gnu.org/nettle/nettle-3.5.1.tar.gz"
+  sha256 "75cca1998761b02e16f2db56da52992aef622bf55a3b45ec538bc2eedadc9419"
 
   head "https://git.lysator.liu.se/nettle/nettle.git"
 
   bottle do
     cellar :any
-    sha256 "9e7f78a4cc96ca57f75ca1d37cc12c11655b7e0aa7109da4becd0408a1e2ed6b" => :mojave
-    sha256 "4327e8e4c4760653113f0bc4a7b0bada37b2d820f6c3ba759832e59ed553cb9a" => :high_sierra
-    sha256 "4624e3b0964d695408cf45330bab8cda2536002834f96202f7a37007407123fd" => :sierra
   end
 
   depends_on "autoconf" => :build
