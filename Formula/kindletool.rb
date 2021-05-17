@@ -4,7 +4,7 @@ class Kindletool < Formula
   url "https://github.com/NiLuJe/KindleTool/archive/v1.6.5.tar.gz"
   sha256 "949cbbd3390a10cb86ebff870a3e00566dbef33630fddb2cbd5ff81f90fb4030"
 
-  head "https://github.com/NiLuJe/KindleTool.git", :shallow => false
+  head "https://github.com/NiLuJe/KindleTool.git", shallow: false
 
   depends_on "pkg-config" => :build
 

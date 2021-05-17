@@ -7,11 +7,10 @@ class LibarchiveGit < Formula
   head "https://github.com/libarchive/libarchive.git"
 
   bottle do
-    cellar :any
     rebuild 1
-    sha256 "65c37e048db20445439e1615ac94d050e8d6a49a95afbe32a07128e095a5939d" => :catalina
-    sha256 "38215a372c5936c41fea411fb491db067b67564da37dc5c370f259e5da8c8c62" => :mojave
-    sha256 "5896f4cf854c58b0ef44b5820e3e406133e762dce90f72afd9d045d88e898734" => :high_sierra
+    sha256 cellar: :any, catalina:    "65c37e048db20445439e1615ac94d050e8d6a49a95afbe32a07128e095a5939d"
+    sha256 cellar: :any, mojave:      "38215a372c5936c41fea411fb491db067b67564da37dc5c370f259e5da8c8c62"
+    sha256 cellar: :any, high_sierra: "5896f4cf854c58b0ef44b5820e3e406133e762dce90f72afd9d045d88e898734"
   end
 
   keg_only :provided_by_macos
@@ -44,6 +43,6 @@ class LibarchiveGit < Formula
   test do
     (testpath/"test").write("test")
     system bin/"bsdtar", "-czvf", "test.tar.gz", "test"
-    assert_match /test/, shell_output("#{bin}/bsdtar -xOzf test.tar.gz")
+    assert_match(/test/, shell_output("#{bin}/bsdtar -xOzf test.tar.gz"))
   end
 end
