@@ -1,14 +1,18 @@
 class NettleGit < Formula
   desc "Low-level cryptographic library"
   homepage "https://www.lysator.liu.se/~nisse/nettle/"
-  url "https://ftp.gnu.org/gnu/nettle/nettle-3.5.1.tar.gz"
-  mirror "https://ftpmirror.gnu.org/nettle/nettle-3.5.1.tar.gz"
-  sha256 "75cca1998761b02e16f2db56da52992aef622bf55a3b45ec538bc2eedadc9419"
+  url "https://ftp.gnu.org/gnu/nettle/nettle-3.7.2.tar.gz"
+  mirror "https://ftpmirror.gnu.org/nettle/nettle-3.7.2.tar.gz"
+  sha256 "8d2a604ef1cde4cd5fb77e422531ea25ad064679ff0adf956e78b3352e0ef162"
+  license any_of: ["GPL-2.0-or-later", "LGPL-3.0-or-later"]
 
   head "https://git.lysator.liu.se/nettle/nettle.git"
 
   bottle do
-    cellar :any
+    sha256 cellar: :any, arm64_big_sur: "aa390782861378db29a3d19d8be98c291bedc32535c3dd35bc5e1ba91c35a170"
+    sha256 cellar: :any, big_sur:       "bbcea7ed54f806373b9689ee05379f509007c58aa737892a6bd77ccb0ee05f67"
+    sha256 cellar: :any, catalina:      "08a2b9568b211c2c8dbf2fb4d1acbb5ace419594f75bf76733b687c441b13a47"
+    sha256 cellar: :any, mojave:        "0dc3ca8dc38af69eee4afa0fd31f93970c23007e319a98cb2036b3cbb0b17cec"
   end
 
   keg_only "available in core"
@@ -17,10 +21,9 @@ class NettleGit < Formula
 
   depends_on "gmp"
 
-  def install
-    # macOS doesn't use .so libs. Emailed upstream 04/02/2016.
-    inreplace "testsuite/dlopen-test.c", "libnettle.so", "libnettle.dylib" unless build.head?
+  uses_from_macos "m4" => :build
 
+  def install
     # The LLVM shipped with Xcode/CLT 10+ compiles binaries/libraries with
     # ___chkstk_darwin, which upsets nettle's expected symbol check.
     # https://github.com/Homebrew/homebrew-core/issues/28817#issuecomment-396762855
@@ -39,6 +42,8 @@ class NettleGit < Formula
       "--enable-shared",
     ]
 
+    args << "--build=aarch64-apple-darwin#{OS.kernel_version}" if Hardware::CPU.arm?
+    
     # We need a TeX env to build docs from scratch...
     args << "--disable-documentation" if build.head?
 
