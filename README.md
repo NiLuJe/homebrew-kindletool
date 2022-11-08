@@ -14,11 +14,11 @@ While kindletool works with the current stable releases of libarchive & nettle, 
 
 * Install nettle @ git master
 
-		brew install NiLuJe/kindletool/nettle --HEAD
+		brew install NiLuJe/kindletool/nettle-git --HEAD
 
 * Install libarchive @ git master
 
-		brew install NiLuJe/kindletool/libarchive --HEAD
+		brew install NiLuJe/kindletool/libarchive-git --HEAD
 
 * Install KindleTool @ git master
 
